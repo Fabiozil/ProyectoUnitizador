@@ -10,18 +10,18 @@ function Modal({ children }) {
                 flexDirection: "column",
                 alignItems: "center",
                 textAlign: "center",
-                backgroundColor: "black",
+                backgroundColor: "lightgray",
                 borderRadius: 1,
                 padding: 1,
                 margin: 1,
                 borderColor: "primary",
                 borderStyle: "solid",
                 zIndex: 1,
-                position: "fixed",
+                position: "absolute",
                 top: "20%",
                 right: "20%",
                 left: "20%",
-                opacity: 0.9,
+                opacity: 1,
             }}
         >
             {children}

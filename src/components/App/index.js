@@ -8,7 +8,7 @@ import { Home } from "../Home";
 import { Copyright } from "../Copyright";
 import { Container } from "../Container";
 import { Theme } from "../theme";
-import { AnnouncementsProvider } from "../AnnouncementsContext";
+import { ModalsProvider } from "../ModalsProvider";
 
 //Functions definition
 
@@ -18,9 +18,9 @@ function App() {
         <ThemeProvider theme={Theme}>
             <CssBaseline />
             <Container>
-                <AnnouncementsProvider>
+                <ModalsProvider>
                     <Home />
-                </AnnouncementsProvider>
+                </ModalsProvider>
             </Container>
             <Copyright />
         </ThemeProvider>
