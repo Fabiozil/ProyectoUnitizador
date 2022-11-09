@@ -21,8 +21,8 @@ function App() {
                 <ModalsProvider>
                     <Home />
                 </ModalsProvider>
+                <Copyright />
             </Container>
-            <Copyright />
         </ThemeProvider>
     );
 }

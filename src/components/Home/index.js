@@ -11,15 +11,20 @@ import { useForm, FormProvider } from "react-hook-form";
 import Grid from "@mui/material/Grid";
 import { TextInput } from "../TextInput";
 import { NewMaquila } from "../NewMaquila";
+import { ReactComponent as FamiliaLogo } from "../Logos/LogoFamilia.svg";
+import { ReactComponent as SmurfitLogo } from "../Logos/LogoSmurfit.svg";
+import { width } from "@mui/system";
 const {
     PutItemCommand,
     DynamoDBClient,
     ScanCommand,
+    GetItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 
 function Home() {
     const [maquilas, setMaquilas] = useState([]);
     const [unitizadoResultado, setUnitizadoResultado] = useState({});
+    const [maquilaResult, setMaquilaResult] = useState({});
     const [code, setCode] = useState("");
     const {
         setOpenNewMaquila,
@@ -56,7 +61,7 @@ function Home() {
 
     const getMaquilaDetails = async (data) => {
         try {
-            alert(JSON.stringify(data));
+            console.log(data);
             const client = new DynamoDBClient({
                 region: "us-east-1",
                 credentials: {
@@ -86,15 +91,32 @@ function Home() {
                 }
             }
 
-            alert(result);
-            if (result) {
+            console.log(result);
+            if (result[0]) {
+                const getMaquilaCommand = new GetItemCommand({
+                    TableName: "Maquila",
+                    Key: {
+                        IDMaquila: {
+                            S: `${result[0].IDMaquila.S}`,
+                        },
+                    },
+                });
+
+                const maquila = await client.send(getMaquilaCommand);
+                console.log(maquila);
+                setMaquilaResult(maquila.Item);
                 setUnitizadoResultado(result);
                 setCode(data.code);
+                alert("Unitizado encontrado!");
                 setOpenMaquilaDetails((prevState) => !prevState);
+            } else {
+                alert(
+                    "Unitizado no encontrado, por favor verifique los datos de entrada"
+                );
             }
         } catch (err) {
             alert(
-                `Error creating new Announcements, please contact support. ${err}`
+                `Error obteniendo los datos de la maquila o el unitizado, por favor contacte a soporte. ${err}`
             );
         }
     };
@@ -121,11 +143,18 @@ function Home() {
                     textAlign: "center",
                 }}
             >
-                <Typography variant="h1">Unitizador</Typography>
-                <Typography variant="h5">
-                    Welcome to Seek and Sell. Please feel free to search for a
-                    product or to post yours
-                </Typography>
+                <Grid container spacing={3} sx={{ padding: 5 }}>
+                    <Grid item xs={4}>
+                        <FamiliaLogo style={{ width: "60%" }} />
+                    </Grid>
+                    <Grid item xs={4}></Grid>
+                    <Grid item xs={4}>
+                        <SmurfitLogo
+                            style={{ width: "100%", paddingTop: "5%" }}
+                        />
+                    </Grid>
+                </Grid>
+
                 <FormProvider {...form}>
                     <form
                         onSubmit={form.handleSubmit(
@@ -135,7 +164,8 @@ function Home() {
                         noValidate
                     >
                         <Grid container spacing={3} sx={{ padding: 5 }}>
-                            <Grid item xs={12}>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={6}>
                                 <SelectInput
                                     listItems={
                                         maquilas
@@ -146,7 +176,9 @@ function Home() {
                                     name="maquilaId"
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={6}>
                                 <TextInput
                                     name={"boxArea"}
                                     label={"Area caja (M2)"}
@@ -158,7 +190,9 @@ function Home() {
                                     required
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={6}>
                                 <TextInput
                                     name={"code"}
                                     label={"Codigo SAP"}
@@ -170,7 +204,9 @@ function Home() {
                                     required
                                 />
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={3}>
                                 <Button
                                     variant="outlined"
                                     onClick={() => {
@@ -178,19 +214,16 @@ function Home() {
                                             (prevState) => !prevState
                                         );
                                     }}
+                                    sx={{ height: "130%", width: "100%" }}
                                 >
                                     Registrar Nueva Maquila
                                 </Button>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={3}>
                                 <Button
                                     variant="contained"
                                     type="submit"
-                                    // onClick={() => {
-                                    //     setOpenMaquilaDetails(
-                                    //         (prevState) => !prevState
-                                    //     );
-                                    // }}
+                                    sx={{ height: "130%", width: "100%" }}
                                 >
                                     Consultar
                                 </Button>
@@ -210,6 +243,7 @@ function Home() {
                         <MaquilaDetails
                             unitizado={unitizadoResultado}
                             codigo={code}
+                            maquila={maquilaResult}
                         />
                     </Modal>
                 )}

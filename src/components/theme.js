@@ -24,7 +24,7 @@ export const Theme = createTheme({
     },
     palette: {
         primary: {
-            500: "#1DB954",
+            500: "#00A3E0",
         },
         // secondary: { A400: "#1DB954" },
         error: { 500: "#E60023" },

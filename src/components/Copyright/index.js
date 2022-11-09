@@ -13,7 +13,7 @@ function Copyright(props) {
         >
             {"Copyright © "}
             <Link color="inherit" href="https://github.com/Fabiozil">
-                Seek and Seell
+                Unitizador
             </Link>{" "}
             {new Date().getFullYear()}
             {"."}
