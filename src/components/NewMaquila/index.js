@@ -53,7 +53,7 @@ function NewMaquila() {
                     IDUnitizado: { S: `${data.name}-50` },
                     IDMaquila: { S: `${data.name}` },
                     areaMenorQue: { S: "0.5" },
-                    areaMayorQue: { S: "200" },
+                    areaMayorQue: { S: "0" },
                     bultosPorTendido: { S: data.packagesPerTend1 },
                     detallesBulto: { S: data.packageDetails1 },
                     detallesPaletizado: { S: data.paletizadoDetails1 },

@@ -10,6 +10,7 @@ function DataBox({
     children,
     titleHeigth = "5vh",
     bodyHeigth = "5vh",
+    image = null,
 }) {
     return (
         <Grid container sx={{ marginBottom: 3 }}>
@@ -60,6 +61,7 @@ function DataBox({
                         sx={{ fontSize: "100%", fontWeight: "bold" }}
                     >
                         {texto}
+                        {image ? image : <></>}
                     </Typography>
                 </Box>
             </Grid>

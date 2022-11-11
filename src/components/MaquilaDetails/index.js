@@ -15,15 +15,48 @@ import { ReactComponent as DimensionsIcon } from "../Icons/Dimensiones.svg";
 import { ReactComponent as ExclamationIcon } from "../Icons/Exclamacion.svg";
 import { ReactComponent as PalletIcon } from "../Icons/Pallet.svg";
 import { ReactComponent as PesoIcon } from "../Icons/Peso.svg";
-
-function getImagen() {
-    return;
-}
+import Caloto1 from "../Graphics/Caloto2x7.jpg";
+import Caloto2 from "../Graphics/Caloto4x7.jpg";
+import Caloto3 from "../Graphics/Caloto6x7.jpg";
+import Medellin1 from "../Graphics/Medellin2x5.png";
+import Medellin2 from "../Graphics/Medellin4x5.png";
+import Medellin3 from "../Graphics/Medellin6x5.png";
+import Rionegro1 from "../Graphics/Rionegro4x5.png";
+import Rionegro2 from "../Graphics/Rionegro6x5.png";
 
 function MaquilaDetails({ unitizado, codigo, maquila }) {
     const { setOpenMaquilaDetails, openMaquilaDetails } =
         React.useContext(ModalsContext);
     const [photo, setPhoto] = useState(null);
+
+    function getImagen() {
+        let logo;
+        console.log(unitizado);
+        if (maquila.IDMaquila.S.includes("Medellin")) {
+            if (unitizado[0].IDUnitizado.S.split("-")[1] == "50") {
+                logo = Medellin3;
+            } else if (unitizado[0].IDUnitizado.S.split("-")[1] == "5095") {
+                logo = Medellin2;
+            } else {
+                logo = Medellin1;
+            }
+        } else if (maquila.IDMaquila.S.includes("Caloto")) {
+            if (unitizado[0].IDUnitizado.S.split("-")[1] == "50") {
+                logo = Caloto3;
+            } else if (unitizado[0].IDUnitizado.S.split("-")[1] == "5095") {
+                logo = Caloto2;
+            } else {
+                logo = Caloto1;
+            }
+        } else if (maquila.IDMaquila.S.includes("Rionegro")) {
+            if (unitizado[0].IDUnitizado.S.split("-")[1] == "50") {
+                logo = Rionegro2;
+            } else if (unitizado[0].IDUnitizado.S.split("-")[1] == "5095") {
+                logo = Rionegro1;
+            }
+        }
+        return <img src={logo} style={{ height: "25vh" }} />;
+    }
 
     return (
         <Grid container spacing={3} sx={{ padding: 5 }}>
@@ -51,7 +84,7 @@ function MaquilaDetails({ unitizado, codigo, maquila }) {
                     titulo="CON ESTIBA"
                     texto={unitizado[0].estiba ? "SI" : "NO"}
                 >
-                    <DimensionsIcon style={{ height: "100%" }} />
+                    <EstibaIcon style={{ height: "100%" }} />
                 </DataBox>
                 <DataBox titulo="DIM. MAX (A x L)" texto={maquila.dimentions.S}>
                     <DimensionsIcon style={{ height: "100%" }} />
@@ -91,7 +124,7 @@ function MaquilaDetails({ unitizado, codigo, maquila }) {
                     titulo="GRAFICO"
                     titleHeigth="10vh"
                     bodyHeigth="30vh"
-                    imagen={getImagen(
+                    image={getImagen(
                         unitizado[0].areaMenorQue.S,
                         unitizado[0].areaMayorQue.S
                     )}
