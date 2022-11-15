@@ -32,7 +32,7 @@ function MaquilaDetails({ unitizado, codigo, maquila }) {
     function getImagen() {
         let logo;
         console.log(unitizado);
-        if (maquila.IDMaquila.S.includes("Medellin")) {
+        if (maquila.IDMaquila.S.includes("Medellín")) {
             if (unitizado[0].IDUnitizado.S.split("-")[1] == "50") {
                 logo = Medellin3;
             } else if (unitizado[0].IDUnitizado.S.split("-")[1] == "5095") {
@@ -40,7 +40,7 @@ function MaquilaDetails({ unitizado, codigo, maquila }) {
             } else {
                 logo = Medellin1;
             }
-        } else if (maquila.IDMaquila.S.includes("Caloto")) {
+        } else if (maquila.IDMaquila.S.includes("CALOTO")) {
             if (unitizado[0].IDUnitizado.S.split("-")[1] == "50") {
                 logo = Caloto3;
             } else if (unitizado[0].IDUnitizado.S.split("-")[1] == "5095") {

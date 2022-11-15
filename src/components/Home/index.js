@@ -87,7 +87,7 @@ function Home() {
                     `Comparando ${data.boxArea} que sea mayor que ${unitizada.areaMayorQue.S} y menor o igual a ${unitizada.areaMenorQue.S}`
                 );
                 if (
-                    data.boxArea > unitizada.areaMayorQue.S &&
+                    data.boxArea >= unitizada.areaMayorQue.S &&
                     data.boxArea <= unitizada.areaMenorQue.S
                 ) {
                     result.push(unitizada);
