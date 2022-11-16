@@ -1,8 +1,10 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
 
 function DataBox({
     texto,
@@ -11,6 +13,7 @@ function DataBox({
     titleHeigth = "5vh",
     bodyHeigth = "5vh",
     image = null,
+    detailsList,
 }) {
     return (
         <Grid container sx={{ marginBottom: 3 }}>
@@ -56,6 +59,17 @@ function DataBox({
                         width: 1,
                     }}
                 >
+                    <List>
+                        {detailsList &&
+                            detailsList.map((detail) => {
+                                return (
+                                    <ListItem>
+                                        <ListItemText primary={detail} />
+                                    </ListItem>
+                                );
+                            })}
+                    </List>
+
                     <Typography
                         variant="text"
                         sx={{ fontSize: "100%", fontWeight: "bold" }}

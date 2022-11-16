@@ -11,8 +11,8 @@ import { useForm, FormProvider } from "react-hook-form";
 import Grid from "@mui/material/Grid";
 import { TextInput } from "../TextInput";
 import { NewMaquila } from "../NewMaquila";
-import { ReactComponent as FamiliaLogo } from "../Logos/LogoFamilia.svg";
 import { ReactComponent as SmurfitLogo } from "../Logos/LogoSmurfit.svg";
+import LogoFamilia from "../Logos/LogoFamilia.png";
 import { width } from "@mui/system";
 const {
     PutItemCommand,
@@ -148,7 +148,7 @@ function Home() {
             >
                 <Grid container spacing={3} sx={{ padding: 5 }}>
                     <Grid item xs={4}>
-                        <FamiliaLogo style={{ width: "60%" }} />
+                        <img src={LogoFamilia} style={{ width: "70%" }} />
                     </Grid>
                     <Grid item xs={4}></Grid>
                     <Grid item xs={4}>
